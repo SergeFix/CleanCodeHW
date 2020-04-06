@@ -26,25 +26,21 @@ describe('My Test', () => {
         new MilitaryPlane('F-15', 1500, 12000, 10000, MilitaryType.FIGHTER),
         new MilitaryPlane('F-22', 1550, 13000, 11000, MilitaryType.FIGHTER),
         new MilitaryPlane('C-130 Hercules', 650, 5000, 110000, MilitaryType.TRANSPORT),
-        new experimentalPlane("Bell X-14", 277, 482, 500, ExperimentalTypes.HIGH_ALTITUDE, ClassificationLevel.SECRET),
-        new experimentalPlane("Ryan X-13 Vertijet", 560, 307, 500, ExperimentalTypes.VTOL, ClassificationLevel.TOP_SECRET)
+        new experimentalPlane("Bell X-14", 277, 482, 500, ExperimentalTypes.ALTITUDE, ClassificationLevel.IS_SECRET),
+        new experimentalPlane("Ryan X-13 Vertijet", 560, 307, 500, ExperimentalTypes.TAKEOFF_AND_LANDING, ClassificationLevel.PRIVACY_LEVEL)
     ];
     let planeWithMaxPassengerCapacity = new PassengerPlane('Boeing-747', 980, 16100, 70500, 242);
 
-    it('should have military Planes with transport type', () => {
+    it('Check list of military Planes having type = transport', () => {
         let airport = new Airport(planes);
         let transportMilitaryPlanes = airport.getTransportMilitaryPlanes();
-        let flag = false;
         for (let militaryPlane of transportMilitaryPlanes) {
-            if (militaryPlane.getMilitaryType() === MilitaryType.TYPE_TRANSPORT) {
-                flag = true;
-                break;
-            }
+            assert.isFalse (militaryPlane.getMilitaryType() === MilitaryType.TYPE_TRANSPORT) /////// выйдет из цикла?
         }
-        assert.equal(flag,true);
     });
+    
 
-    it('should check passenger plane with max capacity', () => {
+    it('Check passenger plane with max capacity', () => {
         let airport = new Airport(planes);
         let expectedPlaneWithMaxPassengersCapacity = airport.getPassengerPlaneWithMaxPassengersCapacity();
         assert.isFalse( expectedPlaneWithMaxPassengersCapacity == planeWithMaxPassengerCapacity);

@@ -8,7 +8,7 @@ class MilitaryPlane extends Plane {
 
     }
 
-    getMilitaryType() {
+    getMilitaryType() {///////////////////useless getter?????????
         return this.militaryType;
     }
 }

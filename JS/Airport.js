@@ -36,7 +36,7 @@ class Airport {
     getTransportMilitaryPlanes(){
         let listOfTransportMilitaryPlanes = [];
         for (let p of this.getMilitaryPlanes()) {
-            if (p.MilitaryType == 'Transport') {
+            if (p.MilitaryType == TYPE_TRANSPORT) {
                 listOfTransportMilitaryPlanes.push(p);
             }
         }
@@ -47,7 +47,7 @@ class Airport {
     getBomberMilitaryPlanes(){
         let listOfBomberMilitaryPlanes = [];
         for (let p of this.getMilitaryPlanes()) {
-            if (p.MilitaryType == 'Bomber') {
+            if (p.MilitaryType == TYPE_BOMBER) {
                 listOfBomberMilitaryPlanes.push(p);
             }
         }
