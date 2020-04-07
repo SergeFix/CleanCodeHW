@@ -5,7 +5,11 @@ const experimentalPlane = require('./Planes/experimentalPlane');
 
 class Airport {
 
-    getPassengerPlane() {
+    constructor(planes) {
+        this.planes = planes;
+    }
+
+    getPassengerPlanes() {
         let listOfPassengerPlanes = [];
         for (let p of this.planes) {
             if (p instanceof PassengerPlane) {
@@ -16,9 +20,11 @@ class Airport {
     }
 
 
-    getPassengerPlaneWithMaxPassengersCapacity() {
-        sortByPassengerCapacity(listOfPassengerPlanes);
-        return listOfPassengerPlanes[0];
+    getPassengerPlanesWithMaxPassengersCapacity() {
+        let arr = [];
+        arr = listOfPassengerPlanes();
+        sortByPassengerCapacity(arr);
+        return arr[0];
     }
 
 
@@ -26,7 +32,7 @@ class Airport {
         let listOfMilitaryPlanes = [];
         for (let p of this.planes) {
             if (p instanceof MilitaryPlane) {
-                militaryPlanes.push(plane);
+                listOfMilitaryPlanes.push(p);
             }
         }
         return listOfMilitaryPlanes;
@@ -36,7 +42,7 @@ class Airport {
     getTransportMilitaryPlanes(){
         let listOfTransportMilitaryPlanes = [];
         for (let p of this.getMilitaryPlanes()) {
-            if (p.MilitaryType == TYPE_TRANSPORT) {
+            if (p.MilitaryType == "TYPE_TRANSPORT") {
                 listOfTransportMilitaryPlanes.push(p);
             }
         }
@@ -47,7 +53,7 @@ class Airport {
     getBomberMilitaryPlanes(){
         let listOfBomberMilitaryPlanes = [];
         for (let p of this.getMilitaryPlanes()) {
-            if (p.MilitaryType == TYPE_BOMBER) {
+            if (p.MilitaryType == "TYPE_BOMBER") {
                 listOfBomberMilitaryPlanes.push(p);
             }
         }
@@ -55,16 +61,11 @@ class Airport {
     }    
 
 
-    constructor(planes) {///////////////???????????????????????????
-        this.planes = planes;
-    }
-
-
     getExperimentalPlanes() {
         let listOfExperimentalPlanes  = [];
         for (let p of this.planes) {
             if (p instanceof experimentalPlane) {
-                listOfExperimentalPlanes.push(plane);
+                listOfExperimentalPlanes.push(listOfExperimentalPlanes);
             }
         }
         return listOfExperimentalPlanes;
@@ -81,17 +82,21 @@ class Airport {
         return planes.sort((a, b) => (a.getPlaneMaxSpeed() > b.getPlaneMaxSpeed()) ? 1 : -1);
     }
 
-    sortByPassengerCapacity(arr) {
+    sortByPassengerCapacity() {
         return plane.sort((a, b) => (a.passengersCapacity() < b.passengersCapacity()) ? 1 : -1);
     }    
     
+    sortByMaxLoadCapacity() {
+        this.planes.sort((a, b) => (a.getMaxLoadCapacity() > b.getMaxLoadCapacity()) ? 1 : -1);
+        return this;
+    }
     
     getPlanes() {
         return this.planes;
     }
 
 
-    static print(planes) {         ///////////////// static ???????????????????
+    static print(planes) { 
         return JSON.stringify(planes);
     }
 }

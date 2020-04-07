@@ -7,8 +7,8 @@ class PassengerPlane extends Plane {
         this._passengersCapacity = passengersCapacity;
     }
 
-//////////////////////////////////////////////useless getter-setter?????????????????
-    getPassengersCapacity() {
+
+    get PassengersCapacity() {
         return this._passengersCapacity;
     }
 

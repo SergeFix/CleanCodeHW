@@ -8,7 +8,7 @@ const ExperimentalTypes = require('./models/ExperimentalTypes');
 const ClassificationLevel = require('./models/ClassificationLevel');
 const fs = require("fs");
 
-(function run() { ////////////???????????
+(function run() {
 
     let planes = [
         new PassengerPlane('Boeing-737', 900, 12000, 60500, 164),
@@ -25,24 +25,20 @@ const fs = require("fs");
         new MilitaryPlane('F-15', 1500, 12000, 10000, MilitaryType.TYPE_FIGHTER),
         new MilitaryPlane('F-22', 1550, 13000, 11000, MilitaryType.TYPE_FIGHTER),
         new MilitaryPlane('C-130 Hercules', 650, 5000, 110000, MilitaryType.TRANSPORT),
-        new experimentalPlane("Bell X-14", 277, 482, 500, ExperimentalTypes.ALTITUDE, ClassificationLevel.IS_SECRET),
-        new experimentalPlane("Ryan X-13 Vertijet", 560, 307, 500, ExperimentalTypes.TAKEOFF_AND_LANDING, ClassificationLevel.PRIVACY_LEVEL)
+        new experimentalPlane("Bell X-14", 277, 482, 500, ExperimentalTypes.ALTITUDE, ClassificationLevel.SECRET),
+        new experimentalPlane("Ryan X-13 Vertijet", 560, 307, 500, ExperimentalTypes.TAKEOFF_AND_LANDING, ClassificationLevel.TOP_SECRET)
     ];
 
     let airport = new Airport(planes);
     let militaryAirport = new Airport(airport.getMilitaryPlanes());
-    let passengerAirport = new Airport(airport.getPassengerPlane());
-    console.log(`Military airport sorted by max distance: ${Airport.print(militaryAirport.sortPlanesByMaxDistance())}`);
-    console.log(`Passenger airport sorted by max speed: ${Airport.print(passengerAirport.sortPlanesByMaxSpeed())}`);
-    console.log(`Plane with max passenger capacity: ${Airport.print(passengerAirport.getPassengerPlaneWithMaxPassengersCapacity())}`);
+    let passengerAirport = new Airport(airport.getPassengerPlanes());
 
     
- ///////////////output results to test files
     fs.writeFile("Military airport sorted.txt", `Military airport sorted by max distance: ${Airport.print(militaryAirport.sortPlanesByMaxDistance())}`);
 
     fs.writeFile("Passenger airport sorted.txt", `Passenger airport sorted by max speed: ${Airport.print(passengerAirport.sortPlanesByMaxSpeed())}`);
 
-    fs.writeFile("Passenger plain max.txt", `Plane with max passenger capacity: ${Airport.print(passengerAirport.getPassengerPlaneWithMaxPassengersCapacity())}`);
+    fs.writeFile("Passenger plain max.txt", `Plane with max passenger capacity: ${Airport.print(passengerAirport.getPassengerPlanesWithMaxPassengersCapacity())}`);
 
 
 

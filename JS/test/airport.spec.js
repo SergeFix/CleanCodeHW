@@ -26,8 +26,8 @@ describe('My Test', () => {
         new MilitaryPlane('F-15', 1500, 12000, 10000, MilitaryType.FIGHTER),
         new MilitaryPlane('F-22', 1550, 13000, 11000, MilitaryType.FIGHTER),
         new MilitaryPlane('C-130 Hercules', 650, 5000, 110000, MilitaryType.TRANSPORT),
-        new experimentalPlane("Bell X-14", 277, 482, 500, ExperimentalTypes.ALTITUDE, ClassificationLevel.IS_SECRET),
-        new experimentalPlane("Ryan X-13 Vertijet", 560, 307, 500, ExperimentalTypes.TAKEOFF_AND_LANDING, ClassificationLevel.PRIVACY_LEVEL)
+        new experimentalPlane("Bell X-14", 277, 482, 500, ExperimentalTypes.ALTITUDE, ClassificationLevel.SECRET),
+        new experimentalPlane("Ryan X-13 Vertijet", 560, 307, 500, ExperimentalTypes.TAKEOFF_AND_LANDING, ClassificationLevel.TOP_SECRET)
     ];
     let planeWithMaxPassengerCapacity = new PassengerPlane('Boeing-747', 980, 16100, 70500, 242);
 
@@ -42,21 +42,21 @@ describe('My Test', () => {
 
     it('Check passenger plane with max capacity', () => {
         let airport = new Airport(planes);
-        let expectedPlaneWithMaxPassengersCapacity = airport.getPassengerPlaneWithMaxPassengersCapacity();
+        let expectedPlaneWithMaxPassengersCapacity = airport.getPassengerPlanesWithMaxPassengersCapacity();
         assert.isFalse( expectedPlaneWithMaxPassengersCapacity == planeWithMaxPassengerCapacity);
     });
 
 
     it('test 3', () => {
-        console.log("TEST testGetPassengerPlaneWithMaxCapacity started!");
+        console.log("TEST testgetPassengerPlanesWithMaxCapacity started!");
         let airport = new Airport(planes);
-        airport.sortPlanesByMaxLoadCapacity();
+        airport.sortByMaxLoadCapacity();
         let planesSortedByMaxLoadCapacity = airport.getPlanes();
         let nextPlaneMaxLoadCapacityIsHigherThanCurrent = true;
         for (let i = 0; i < planesSortedByMaxLoadCapacity.length - 1; i++) {
             let currentPlane = planesSortedByMaxLoadCapacity[i];
             let nextPlane = planesSortedByMaxLoadCapacity[i + 1];
-            if (currentPlane.getMinLoadCapacity() > nextPlane.getMinLoadCapacity()) {
+            if (currentPlane.getMaxLoadCapacity() > nextPlane.getMaxLoadCapacity()) {
                 nextPlaneMaxLoadCapacityIsHigherThanCurrent = false;
                 break;
             }
@@ -64,37 +64,24 @@ describe('My Test', () => {
         assert.isTrue(nextPlaneMaxLoadCapacityIsHigherThanCurrent);
     })
 
-    it('testHasAtLeastOneBomberInMilitaryPlanes', () => {
+    
+    it('There are at least one bomber among military planes', () => {
         let airport = new Airport(planes);
         let bomberMilitaryPlanes  = airport.getBomberMilitaryPlanes ();
-        let flag = false;
         for (let militaryPlane of bomberMilitaryPlanes) {
-            if (militaryPlane.getMilitaryType() === MilitaryType.BOMBER) {
-                flag = true;
-            }
-            else{
-                assert.fail("Test failed!");
-            }
+            assert.fail (militaryPlane.getMilitaryType() === MilitaryType.BOMBER)
         }
-
-        // if not failed;
     })
 
     it('should check that experimentsl planes has classification level higher than unclassified', () => {
         let airport = new Airport(planes);
-        let bomberMilitaryPlanes  = airport.getExperimentalPlanes ();
-        let hasUnclassifiedPlanes  = false;
+        let bomberMilitaryPlanes = airport.getExperimentalPlanes ();
         for (let experimentalPlane  of bomberMilitaryPlanes) {
-            if (experimentalPlane.classificationLevel === ClassificationLevel.UNCLASSIFIED) {
-                hasUnclassifiedPlanes = true;
-
-        }
-        assert.isFalse(hasUnclassifiedPlanes);
-
-        }
+            assert.isFalse (experimentalPlane.classificationLevel === ClassificationLevel.UNCLASSIFIED) 
+          }
     });
 
-});
+})
 
 
 

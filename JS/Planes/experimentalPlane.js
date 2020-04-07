@@ -15,7 +15,7 @@ class experimentalPlane   extends Plane
     }
 
 
-    get model()/////////////////useless getters??????????????????
+    get model()
     {
         return this._model;
     }

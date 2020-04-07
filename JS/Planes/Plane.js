@@ -19,6 +19,9 @@ class Plane {
         return this.maxFlightDistance;
     }
 
+    getMaxLoadCapacity() {
+        return this.maxLoadCapacity;
+    }
 }
 
 module.exports = Plane;
