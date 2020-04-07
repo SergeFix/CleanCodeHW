@@ -22,7 +22,7 @@ class Airport {
 
     getPassengerPlanesWithMaxPassengersCapacity() {
         let arr = [];
-        arr = listOfPassengerPlanes();
+        arr = Airport.getPassengerPlanes();
         sortByPassengerCapacity(arr);
         return arr[0];
     }
